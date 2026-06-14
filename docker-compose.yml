@@ -1,0 +1,19 @@
+# insites-demo-blog — tenant-authored base compose (NO routing labels; platform appends the override).
+name: insites-demo-blog
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: insites-demo-blog-web:latest
+    expose:
+      - "80"
+    networks:
+      - insites_lab_proxy
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "com.insites.demo=insites-demo-blog"
+networks:
+  insites_lab_proxy:
+    external: true
